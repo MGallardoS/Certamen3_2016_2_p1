@@ -1,6 +1,5 @@
 package cl.telematica.android.certamen3;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import cl.telematica.android.certamen3.fragment.ListFragment;
+import cl.telematica.android.certamen3.models.Feed;
+import cl.telematica.android.certamen3.presenters.MyAsyncTaskExecutorImp;
+import cl.telematica.android.certamen3.views.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -24,8 +28,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         createMyRecyclerView();
-        MyAsyncTaskExecutor.getInstance().executeMyAsynctask(this, mRecyclerView);
+        MyAsyncTaskExecutorImp.getInstance().executeMyAsynctask(this, mRecyclerView);
+
+
     }
 
     public void createMyRecyclerView() {
@@ -36,35 +43,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
     }
 
-    public List<Feed> getFeeds(String result) {
-        List<Feed> feeds = new ArrayList<>();
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            JSONObject responseData = jsonObject.getJSONObject("responseData");
-            JSONObject feedObj = responseData.getJSONObject("feed");
-
-            JSONArray entries = feedObj.getJSONArray("entries");
-            int size = entries.length();
-            for(int i = 0; i < size; i++){
-                JSONObject entryObj = entries.getJSONObject(i);
-                Feed feed = new Feed();
-
-                feed.setTitle(entryObj.optString("title"));
-                feed.setLink(entryObj.optString("link"));
-                feed.setAuthor(entryObj.optString("author"));
-                feed.setPublishedDate(entryObj.optString("publishedDate"));
-                feed.setContent(entryObj.optString("content"));
-                feed.setImage(entryObj.optString("image"));
-
-                feeds.add(feed);
-            }
-
-            return feeds;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return feeds;
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
             /**
              * You should manage the action to show the favorite items saved by the user
              */
+
+
             return true;
         }
 

@@ -13,7 +13,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import cl.telematica.android.certamen3.models.Feed;
+import cl.telematica.android.certamen3.presenters.BDLocalImp;
 
 /**
  * Created by franciscocabezas on 11/18/16.
@@ -82,6 +90,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
                 feed.setFavorite(!feed.isFavorite());
                 if(feed.isFavorite()) {
                     holder.mAddBtn.setText(mContext.getString(R.string.added));
+                        //mDataset =
+
                 } else {
                     holder.mAddBtn.setText(mContext.getString(R.string.like));
                 }
@@ -92,5 +102,39 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    public List<Feed> getFeeds(String result) {
+        List<Feed> feeds = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            JSONObject responseData = jsonObject.getJSONObject("responseData");
+            JSONObject feedObj = responseData.getJSONObject("feed");
+
+            JSONArray entries = feedObj.getJSONArray("entries");
+            int size = entries.length();
+            for(int i = 0; i < size; i++){
+                JSONObject entryObj = entries.getJSONObject(i);
+                Feed feed = new Feed();
+
+                feed.setTitle(entryObj.optString("title"));
+                feed.setLink(entryObj.optString("link"));
+                feed.setAuthor(entryObj.optString("author"));
+                feed.setPublishedDate(entryObj.optString("publishedDate"));
+                feed.setContent(entryObj.optString("content"));
+                feed.setImage(entryObj.optString("image"));
+
+                feeds.add(feed);
+
+                //agregar a la base de datos
+                BDLocalImp localbd = new BDLocalImp(feed, mContext);
+                localbd.SaveData();
+            }
+
+            return feeds;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return feeds;
+        }
     }
 }
