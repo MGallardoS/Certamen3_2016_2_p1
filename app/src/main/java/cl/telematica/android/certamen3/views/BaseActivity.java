@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
 
+import cl.telematica.android.certamen3.fragment.ListFragments;
+
 /**
  * Created by mavin on 18/11/2016.
  */
@@ -17,7 +19,7 @@ public class BaseActivity extends AppCompatActivity {
         this.contentFrame = contentFrame;
     }
 
-    public void switchContent(ListFragment fragment, String addBackStack) {
+    public void switchContent(ListFragments fragment, String addBackStack) {
         switchContent(fragment, addBackStack, -1, -1);
     }
 

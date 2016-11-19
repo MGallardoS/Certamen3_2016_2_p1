@@ -1,6 +1,7 @@
 package cl.telematica.android.certamen3.presenters;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ListView;
 
 import cl.telematica.android.certamen3.presenters.contract.ShowFeed;
@@ -13,6 +14,8 @@ public class ShowFeedImp implements ShowFeed {
 
     Context context;
     private ListView mShowFeed;
+    public RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
 
 
     public ShowFeedImp(ListView mListBookView, Context context) {
@@ -21,7 +24,8 @@ public class ShowFeedImp implements ShowFeed {
 
     }
     @Override
-    public void createMyRecyclerView() {
+    public void createMyRecyclerView(RecyclerView.Adapter mAdapter) {
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 }

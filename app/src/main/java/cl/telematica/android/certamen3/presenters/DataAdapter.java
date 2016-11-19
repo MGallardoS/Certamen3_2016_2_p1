@@ -1,4 +1,4 @@
-package cl.telematica.android.certamen3;
+package cl.telematica.android.certamen3.presenters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,8 +20,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cl.telematica.android.certamen3.R;
 import cl.telematica.android.certamen3.models.Feed;
-import cl.telematica.android.certamen3.presenters.BDLocalImp;
 
 /**
  * Created by franciscocabezas on 11/18/16.

@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cl.telematica.android.certamen3.DataAdapter;
 import cl.telematica.android.certamen3.MainActivity;
 import cl.telematica.android.certamen3.conection.HttpServerConnection;
 import cl.telematica.android.certamen3.models.Feed;

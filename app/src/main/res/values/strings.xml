@@ -4,4 +4,7 @@
     <string name="like">Agregar a favoritos</string>
     <string name="added">Agregado</string>
     <string name="action_settings">Mis Favoritos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
